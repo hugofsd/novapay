@@ -1,0 +1,130 @@
+# ============================================================
+# NovaPay — Infrastructure
+# Serviços: Zookeeper + Kafka + Kafka UI + 5x MySQL
+# Rodar via WSL Ubuntu:
+#   cd "/mnt/c/Users/hugo6/OneDrive/Área de Trabalho/Anotações proj portifolio/novapay/novapay-infra"
+#   docker compose up -d
+# ============================================================
+
+services:
+
+  # ----------------------------------------------------------
+  # MENSAGERIA
+  # ----------------------------------------------------------
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: novapay-zookeeper
+    ports:
+      - "22181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: novapay-kafka
+    ports:
+      - "29092:29092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT_INTERNAL://0.0.0.0:9092,PLAINTEXT_EXTERNAL://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT_INTERNAL://kafka:9092,PLAINTEXT_EXTERNAL://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: novapay-kafka-ui
+    ports:
+      - "8090:8080"
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: novapay-local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+
+  # ----------------------------------------------------------
+  # BANCOS DE DADOS — um por microserviço (Database per Service)
+  # ----------------------------------------------------------
+
+  mysql-gateway:
+    image: mysql:8
+    container_name: mysql-gateway
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_GATEWAY}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-gateway-data:/var/lib/mysql
+
+  mysql-account:
+    image: mysql:8
+    container_name: mysql-account
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_ACCOUNT}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-account-data:/var/lib/mysql
+
+  mysql-transaction:
+    image: mysql:8
+    container_name: mysql-transaction
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_TRANSACTION}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-transaction-data:/var/lib/mysql
+
+  mysql-fraud:
+    image: mysql:8
+    container_name: mysql-fraud
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_FRAUD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-fraud-data:/var/lib/mysql
+
+  mysql-notification:
+    image: mysql:8
+    container_name: mysql-notification
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NOTIFICATION}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-notification-data:/var/lib/mysql
+
+# ----------------------------------------------------------
+# VOLUMES — persistência de dados por banco
+# ----------------------------------------------------------
+
+volumes:
+  mysql-gateway-data:
+  mysql-account-data:
+  mysql-transaction-data:
+  mysql-fraud-data:
+  mysql-notification-data:
