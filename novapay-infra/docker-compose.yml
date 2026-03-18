@@ -1,9 +1,7 @@
 # ============================================================
 # NovaPay — Infrastructure
 # Serviços: Zookeeper + Kafka + Kafka UI + 5x MySQL
-# Rodar via WSL Ubuntu:
-#   cd "/mnt/c/Users/hugo6/OneDrive/Área de Trabalho/Anotações proj portifolio/novapay/novapay-infra"
-#   docker compose up -d
+# Rodar via WSL Ubuntu
 # ============================================================
 
 services:
