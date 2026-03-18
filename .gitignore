@@ -2,6 +2,9 @@
 .env
 *.env
 
+# Documentação interna de infra — não sobe para o repositório
+novapay-infra/INFRA-COMMANDS.md
+
 # Maven
 target/
 *.class
