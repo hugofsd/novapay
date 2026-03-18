@@ -1,6 +1,5 @@
 package com.novapay.account_service.kafka.event;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,9 +8,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-// Envelope da mensagem publicada no Kafka.
-// É uma cópia dos dados relevantes da conta — não a entidade Account inteira.
-// Outros serviços (notification, fraud) deserializam este JSON ao consumir o tópico.
 @Getter
 @Builder
 @NoArgsConstructor
@@ -24,6 +20,4 @@ public class AccountCreatedEvent {
     private BigDecimal balance;
     private String status;
     private LocalDateTime createdAt;
-
 }
-

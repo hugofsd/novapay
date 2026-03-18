@@ -8,8 +8,6 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-// Mapeia a tabela "transactions" criada pelo Flyway.
-// Cada instância desta classe = uma linha na tabela.
 @Entity
 @Table(name = "transactions")
 @Getter
@@ -21,21 +19,15 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // IDs das contas envolvidas — são apenas números, não objetos Account.
-    // Motivo: account-service e transaction-service têm bancos separados.
-    // Não existe JOIN entre eles — a comunicação é via Kafka.
     @Column(name = "source_account_id", nullable = false)
     private Long sourceAccountId;
 
     @Column(name = "target_account_id", nullable = false)
     private Long targetAccountId;
 
-    // BigDecimal para dinheiro — nunca double/float (problemas de arredondamento).
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
 
-    // EnumType.STRING: salva "TRANSFER", "DEPOSIT" ou "WITHDRAWAL" no banco.
-    // Mais seguro que ORDINAL — se você reordenar o enum, não quebra dados existentes.
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionType type;
@@ -44,17 +36,12 @@ public class Transaction {
     @Column(nullable = false)
     private TransactionStatus status;
 
-    // updatable = false: esta coluna nunca é atualizada após o INSERT.
-    // Transações são imutáveis — o que muda é só o status.
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // @PrePersist: executado automaticamente pelo JPA antes de cada INSERT.
-    // Define os valores padrão sem precisar setar no service.
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        if (status == null) status = TransactionStatus.PENDING; // toda transação começa pendente
+        if (status == null) status = TransactionStatus.PENDING;
     }
-
 }

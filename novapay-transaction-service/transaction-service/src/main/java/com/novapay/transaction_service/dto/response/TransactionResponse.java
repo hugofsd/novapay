@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-// O que a API devolve — nunca devolva a entidade Transaction diretamente.
-// status e type são String (não enum) para que o consumidor da API
-// receba texto legível: "PENDING", "TRANSFER", etc.
 @Getter
 @Builder
 @NoArgsConstructor
@@ -21,8 +18,7 @@ public class TransactionResponse {
     private Long sourceAccountId;
     private Long targetAccountId;
     private BigDecimal amount;
-    private String type;       // String, não enum
-    private String status;     // String, não enum
+    private String type;
+    private String status;
     private LocalDateTime createdAt;
-
 }

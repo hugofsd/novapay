@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-// @Service: indica que é um bean de negócio. O Spring o registra e injeta onde necessário.
-// Toda a lógica de negócio fica aqui — o controller só delega, o repository só acessa o banco.
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,21 +22,14 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final AccountEventProducer accountEventProducer;
 
-    // Cria uma nova conta a partir dos dados do request.
-    // Fluxo: valida (feito pelo @Valid no controller) → salva no banco → publica evento.
     public AccountResponse create(AccountRequest request) {
-
         Account account = new Account();
         account.setOwnerName(request.getOwnerName());
         account.setCpf(request.getCpf());
-        // balance e status NÃO são setados aqui — o @PrePersist da entidade cuida disso
 
-
-        Account saved = accountRepository.save(account); // dispara o @PrePersist aqui
+        Account saved = accountRepository.save(account);
         log.info("Account created: id={}, cpf={}", saved.getId(), saved.getCpf());
 
-        // Publica o evento APÓS salvar com sucesso.
-        // .name() converte o enum AccountStatus para a String "ACTIVE".
         accountEventProducer.publishAccountCreated(AccountCreatedEvent.builder()
                 .id(saved.getId())
                 .ownerName(saved.getOwnerName())
@@ -50,35 +40,27 @@ public class AccountService {
                 .build());
 
         return toResponse(saved);
-    };
+    }
 
-    // Retorna todas as contas. Em produção usaria paginação (Pageable),
-    // mas para o escopo do projeto está adequado.
     public List<AccountResponse> findAll() {
         return accountRepository.findAll().stream()
-                .map(this::toResponse) // aplica toResponse() em cada Account da lista
+                .map(this::toResponse)
                 .toList();
     }
 
-    // Busca por ID. orElseThrow lança AccountNotFoundException se não encontrar,
-    // que o GlobalExceptionHandler converte em resposta 404.
     public AccountResponse findById(Long id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException(id));
         return toResponse(account);
     }
 
-    // Atualiza apenas o status. Busca a conta, seta o novo status e salva.
-    // O @PreUpdate da entidade atualiza o updatedAt automaticamente.
     public AccountResponse updateStatus(Long id, AccountStatus status) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new AccountNotFoundException(id));
         account.setStatus(status);
-        return toResponse(accountRepository.save(account)); // @PreUpdate é acionado aqui
+        return toResponse(accountRepository.save(account));
     }
 
-    // Método privado de conversão Account → AccountResponse (o "mapper" manual).
-    // Centraliza a conversão em um lugar só — se AccountResponse mudar, muda só aqui.
     private AccountResponse toResponse(Account account) {
         return AccountResponse.builder()
                 .id(account.getId())
@@ -90,5 +72,4 @@ public class AccountService {
                 .updatedAt(account.getUpdatedAt())
                 .build();
     }
-
 }
