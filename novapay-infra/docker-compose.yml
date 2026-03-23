@@ -1,13 +1,13 @@
 # ============================================================
-# NovaPay — Infrastructure
-# Serviços: Zookeeper + Kafka + Kafka UI + 5x MySQL
-# Rodar via WSL Ubuntu
+# NovaPay — Infraestrutura (Camada 1 e 2)
+# Mensageria + Bancos de dados
+# Rodar: docker compose up -d
 # ============================================================
 
 services:
 
   # ----------------------------------------------------------
-  # MENSAGERIA
+  # CAMADA 1 — MENSAGERIA
   # ----------------------------------------------------------
 
   zookeeper:
@@ -18,6 +18,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - novapay-network
 
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -34,6 +36,8 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT_EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - novapay-network
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -46,9 +50,12 @@ services:
       KAFKA_CLUSTERS_0_NAME: novapay-local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    networks:
+      - novapay-network
 
   # ----------------------------------------------------------
-  # BANCOS DE DADOS — um por microserviço (Database per Service)
+  # CAMADA 2 — BANCOS DE DADOS
+  # healthcheck garante que o MySQL esta pronto antes dos servicos subirem
   # ----------------------------------------------------------
 
   mysql-gateway:
@@ -63,12 +70,20 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql-gateway-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "novapay", "-pnovapay_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - novapay-network
 
   mysql-account:
     image: mysql:8
     container_name: mysql-account
     ports:
-      - "3306:3306"
+      - "3316:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DB_ACCOUNT}
@@ -76,6 +91,14 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql-account-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "novapay", "-pnovapay_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - novapay-network
 
   mysql-transaction:
     image: mysql:8
@@ -89,6 +112,14 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql-transaction-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "novapay", "-pnovapay_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - novapay-network
 
   mysql-fraud:
     image: mysql:8
@@ -102,6 +133,14 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql-fraud-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "novapay", "-pnovapay_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - novapay-network
 
   mysql-notification:
     image: mysql:8
@@ -115,9 +154,17 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql-notification-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "novapay", "-pnovapay_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - novapay-network
 
 # ----------------------------------------------------------
-# VOLUMES — persistência de dados por banco
+# VOLUMES — persistencia de dados por banco
 # ----------------------------------------------------------
 
 volumes:
@@ -126,3 +173,12 @@ volumes:
   mysql-transaction-data:
   mysql-fraud-data:
   mysql-notification-data:
+
+# ----------------------------------------------------------
+# REDE COMPARTILHADA — usada tambem pelo docker-compose.services.yml
+# ----------------------------------------------------------
+
+networks:
+  novapay-network:
+    name: novapay-network
+    driver: bridge
