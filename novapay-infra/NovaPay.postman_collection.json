@@ -1,0 +1,783 @@
+{
+  "info": {
+    "_postman_id": "1bece1f4-98a9-4ce8-9343-68ca55654b7f",
+    "name": "NovaPay",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "16595100"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "gateway",
+          "item": [
+            {
+              "name": "accounts status via Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"status\": \"ACTIVE\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/accounts/1/status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "accounts",
+                    "1",
+                    "status"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "accounts via Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/accounts",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "accounts id via Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8081/accounts/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "accounts",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "accounts via Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ownerName\": \"Hugo Teste 5\",\r\n    \"cpf\": \"45222593822\"\r\n\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/accounts",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "accounts"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "accounts status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"ACTIVE\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/accounts/1/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "accounts",
+                "1",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "accounts",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ownerName\": \"Hugo\",\r\n    \"cpf\": \"45222593822\"\r\n\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/accounts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/accounts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "accounts id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/accounts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "accounts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "transaction",
+      "item": [
+        {
+          "name": "Gateway",
+          "item": [
+            {
+              "name": "transactions TRANSFER Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"sourceAccountId\": 5,\r\n    \"targetAccountId\": 6,\r\n    \"amount\": 1500.00,\r\n    \"type\": \"TRANSFER\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/transactions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "transactions DEPOSIT Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"sourceAccountId\": 6,\r\n    \"targetAccountId\": 5,\r\n    \"amount\": 500.00,\r\n    \"type\": \"DEPOSIT\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/transactions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "transactions WITHDRAWAL Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"sourceAccountId\": 2,\r\n    \"targetAccountId\": 2,\r\n    \"amount\": 75.50,\r\n    \"type\": \"WITHDRAWAL\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/transactions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "transactions Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8082/transactions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8082",
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "transactions by id Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/transactions/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "transactions por conta (sourceAccountId) Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/transactions/account/2",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "transactions",
+                    "account",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "transactions TRANSFER",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"sourceAccountId\": 5,\r\n    \"targetAccountId\": 6,\r\n    \"amount\": 1500.00,\r\n    \"type\": \"TRANSFER\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions DEPOSIT",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"sourceAccountId\": 6,\r\n    \"targetAccountId\": 5,\r\n    \"amount\": 500.00,\r\n    \"type\": \"DEPOSIT\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions WITHDRAWAL",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"sourceAccountId\": 2,\r\n    \"targetAccountId\": 2,\r\n    \"amount\": 75.50,\r\n    \"type\": \"WITHDRAWAL\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/transactions/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "transactions",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "transactions por conta (sourceAccountId)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/transactions/account/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "transactions",
+                "account",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "fraud",
+      "item": [
+        {
+          "name": "Gateway",
+          "item": [
+            {
+              "name": "fraud Gateway",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJHYWJyaWVsbGUiLCJpYXQiOjE3NzQyMjYzMDQsImV4cCI6MTc3NDMxMjcwNH0.Hd8vwUjlFJx3sUhHXwCOxd_29cmpjIwSxSXS-YQeSIKbuBuLr13uRFiez8rl1c8m",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/fraud/6",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "fraud",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "fraud",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8083/fraud/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8083",
+              "path": [
+                "fraud",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Gateway",
+          "item": [
+            {
+              "name": "notifications Gateway",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/notifications",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8084",
+              "path": [
+                "notifications"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gateway",
+      "item": [
+        {
+          "name": "Registrar usuário",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"Gabrielle\",\r\n    \"password\": \"151125\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login — obter JWT",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"Gabrielle\",\r\n    \"password\": \"151125\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
